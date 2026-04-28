@@ -6,13 +6,14 @@ let products = [
 ];  
 
 let choice = 0;
-while (choice !== 4){
+while (choice !== 5){
 
     console.log("");
     console.log("1. Show Products.   ");
     console.log("2. Add Products.   ");
     console.log("3. Find Products.   ");
-    console.log("4. Exit. ");
+    console.log("4. Delete Product. ");
+    console.log("5. Exit. ");
     choice = Number(prompt("Enter your choice : "));
     if (choice === 1){
         showProducts(products);
@@ -27,6 +28,10 @@ while (choice !== 4){
         checkProduct(findProduct, products);
     }
     else if (choice === 4){
+        let delProduct = prompt("Enter the name of the product to delete from the list: ").trim().toLowerCase();
+        deleteProduct(delProduct, products);
+    }
+    else if (choice === 5){
         console.log("Program Ended.");
         
     }
@@ -79,6 +84,23 @@ function checkProduct(name, products){
         }
     }
     if(flag === false){
+        console.log("Product not found.");
+    }
+}
+
+function deleteProduct(name, products){
+    let found  = false;
+
+    for(let i = 0 ; i < products.length ; i++){
+        if(name === products[i].name){
+            products.splice(i, 1);
+            console.log("Product deleted successfully! ");
+            found   = true;
+            showProducts(products);
+            break;
+        }
+    }
+    if(found === false){
         console.log("Product not found.");
     }
 }
