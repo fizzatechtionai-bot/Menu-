@@ -6,14 +6,15 @@ let products = [
 ];  
 
 let choice = 0;
-while (choice !== 5){
+while (choice !== 6){
 
     console.log("");
     console.log("1. Show Products.   ");
     console.log("2. Add Products.   ");
     console.log("3. Find Products.   ");
     console.log("4. Delete Product. ");
-    console.log("5. Exit. ");
+    console.log("5. Update Product. ");
+    console.log("6. Exit. ");
     choice = Number(prompt("Enter your choice : "));
     if (choice === 1){
         showProducts(products);
@@ -32,6 +33,10 @@ while (choice !== 5){
         deleteProduct(delProduct, products);
     }
     else if (choice === 5){
+        let prodName = prompt("Enter the name of the product to update: ").trim().toLowerCase();
+        updateProduct(prodName, products);
+    }
+    else if (choice === 6){
         console.log("Program Ended.");
         
     }
@@ -101,6 +106,36 @@ function deleteProduct(name, products){
         }
     }
     if(found === false){
+        console.log("Product not found.");
+    }
+}
+function updateProduct(name, products) {
+    let found = false;
+
+    for (let i = 0; i < products.length; i++) {
+        if (name === products[i].name) {
+            found = true;
+
+            let newName = prompt("Enter the new name for the product: ").trim().toLowerCase();
+            let newPrice = Number(prompt("Enter price for the product: "));
+            let stockInput = prompt("Is the product available? (yes/no): ").trim().toLowerCase();
+
+            let newStock = false;
+            if (stockInput === "yes") {
+                newStock = true;
+            }
+
+            products[i].name = newName;
+            products[i].price = newPrice;
+            products[i].inStock = newStock;
+
+            console.log("Product updated successfully!");
+            showProducts(products);
+            break;
+        }
+    }
+
+    if (found === false) {
         console.log("Product not found.");
     }
 }
